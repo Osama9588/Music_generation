@@ -13,8 +13,8 @@ num2words
 numpy
 sentencepiece
 spacy
-torch==2.0.1
-torchaudio
+torch==2.3.1
+torchaudio==2.3.1
 torchvision
 tqdm
 transformers
