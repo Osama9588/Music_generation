@@ -32,18 +32,12 @@ def generate_music_tensors(description, duration: int):
 
 
 def save_audio(samples: torch.Tensor):
-    """Renders an audio player for the given audio samples and saves them to a local directory.
-
-    Args:
-        samples (torch.Tensor): a Tensor of decoded audio samples
-            with shapes [B, C, T] or [C, T]
-        sample_rate (int): sample rate audio should be displayed with.
-        save_path (str): path to the directory where audio should be saved.
-    """
-
+    """Renders an audio player for the given audio samples and saves them to a local directory."""
+    
     print("Samples (inside function): ", samples)
     sample_rate = 32000
     save_path = "audio_output/"
+    os.makedirs(save_path, exist_ok=True)  # Ensure directory exists
     assert samples.dim() == 2 or samples.dim() == 3
 
     samples = samples.detach().cpu()
@@ -53,6 +47,7 @@ def save_audio(samples: torch.Tensor):
     for idx, audio in enumerate(samples):
         audio_path = os.path.join(save_path, f"audio_{idx}.wav")
         torchaudio.save(audio_path, audio, sample_rate)
+
 
 def get_binary_file_downloader_html(bin_file, file_label='File'):
     with open(bin_file, 'rb') as f:
